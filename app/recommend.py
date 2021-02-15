@@ -12,10 +12,10 @@ import json
 
 # Load pickled vectorizer and model
 
-with open('app/pickles/tfidf.pkl', 'rb') as tfidf_pkl:
+with open('pickles/tfidf.pkl', 'rb') as tfidf_pkl:
     tfidf = pickle.load(tfidf_pkl)
 
-with open('app/pickles/nn_model.pkl', 'rb') as nn_pkl:
+with open('pickles/nn_model.pkl', 'rb') as nn_pkl:
     nn_model = pickle.load(nn_pkl)
 
 #with open('./pickles/min_data.pkl', 'rb') as data_pkl:
@@ -27,7 +27,7 @@ with open('app/pickles/nn_model.pkl', 'rb') as nn_pkl:
 
 #file_name = path.join(path.dirname(__file__), "cityspire-c-ds/app/data/pop_rent_crime_walk_cost_livability_bins.csv")
 
-prcb = pd.read_csv("app/data/pop_rent_crime_walk_cost_livability_bins.csv")
+prcb = pd.read_csv("data/pop_rent_crime_walk_cost_livability_bins.csv")
 
 
 # Recommend Function
