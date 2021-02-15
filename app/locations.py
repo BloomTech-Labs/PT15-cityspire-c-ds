@@ -23,9 +23,9 @@ log = logging.getLogger(__name__)
 router = APIRouter()
 
 
-# Import data
+# Import data - Change this to read from DB with SQL
 
-df = pd.read_csv("data/pop_rent_crime_walk_cost_livability_bins.csv")
+df = pd.read_csv("app/data/pop_rent_crime_walk_cost_livability_bins.csv")
 
 Locations = list(df.Location.unique())
 

@@ -12,9 +12,11 @@ psycopg2-binary = "*"
 scikit-learn = "*"
 python-dotenv = "*"
 pydantic = "*"
-pickle-mixin = "*"
+pickle-mixin = "0.23.2"
 sqlalchemy = "*"
 gunicorn = "*"
+pip = "*"
+uvloop = "*"
 
 [dev-packages]
 jupyter = "*"
