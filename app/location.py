@@ -30,11 +30,12 @@ from pydantic import BaseModel, Field, Json
 log = logging.getLogger(__name__)
 router = APIRouter()
 
+
 # Connect to AWS RDS PG DB
 
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
-#DATABASE_URL = os.getenv['DATABASE_URL'] # for AWS EB Environment Variable
+
 connection = psycopg2.connect(DATABASE_URL)
 
 # Cursor for making SQL queries
@@ -98,32 +99,17 @@ async def location_data(location: LocationDataRequest):
 
     # Queries for data response
 
-    #pop_query = """SELECT "2019 Population" FROM CitySpire WHERE "Location" = %s""", [location]
-    #rent_query = """SELECT "2019 Rental Rates" FROM CitySpire WHERE "Location" = %s""", [location]
-    #walk_query = """SELECT "2019 Walk Score" FROM CitySpire WHERE "Location" = %s""", [location]
-    #live_query = """SELECT "2019 Livability Score" FROM CitySpire WHERE "Location" = %s""", [location]
-
     cursor.execute("""SELECT "2019 Population" FROM cityspire WHERE "Location" = %s;""", [location])
     pop = cursor.fetchone()
-    #pop = pop[0][0] # This is slice slice the tuple value from the list of tuples
 
     cursor.execute("""SELECT "2019 Rental Rates" FROM cityspire WHERE "Location" = %s;""", [location])
     rent = cursor.fetchone()
-    #rent = rent[0][0] # This is slice slice the tuple value from the list of tuples
 
     cursor.execute("""SELECT "Walk Score" FROM cityspire WHERE "Location" = %s;""", [location])
     walk = cursor.fetchone()
-    #walk = walk[0][0] # This is slice slice the tuple value from the list of tuples
 
     cursor.execute("""SELECT "Livability Score" FROM cityspire WHERE "Location" = %s;""", [location])
     live = cursor.fetchone()
-    #live = live[0][0] # This is slice slice the tuple value from the list of tuples
-
-    
-    # Close the cursor and connection (this breaks the API)
-
-    #cursor.close()
-    #connection.close()
 
 
     # Return the data that was requested and queried
