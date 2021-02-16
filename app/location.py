@@ -57,10 +57,23 @@ class LocationDataItem(BaseModel):
     """Output Schema - Location information."""
     
     city_name: str = Field(..., example = "Phoenix, Arizona")
-    population: int = Field(..., example = 1000000)
-    rent_per_month: int = Field(..., example = 1500)
-    walk_score: int = Field(..., example = 98)
-    livability_score: int = Field(..., example = 1000)
+    population: int = Field(..., example = 1680992)
+    rent_per_month: int = Field(..., example = 1447.4375)
+    walk_score: int = Field(..., example = 41)
+    bike_score: int = Field(..., example = 56)
+    cost_of_living_index: int = Field(..., example = 105.79999999999986)
+    livability_score: int = Field(..., example = 8401.333637579924)
+    crime_rate: int = Field(..., example = 8075.886143420093)
+    violent_crime: int = Field(..., example = 11803)
+    murder_and_nonnegligent_manslaughter: int = Field(..., example = 131)
+    rape: int = Field(..., example = 1139)
+    robbery: int = Field(..., example = 3197)
+    aggravated_assault: int = Field(..., example = 7336)
+    property_crime: int = Field(..., example = 55974)
+    burglary: int = Field(..., example = 9471)
+    larceny_theft: int = Field(..., example = 39427)
+    motor_vehicle_theft: int = Field(..., example = 7076)
+    arson: int = Field(..., example = 201)
 
     
 # Instantiate LocationDataResponse BaseModel
@@ -108,8 +121,47 @@ async def location_data(location: LocationDataRequest):
     cursor.execute("""SELECT "Walk Score" FROM cityspire WHERE "Location" = %s;""", [location])
     walk = cursor.fetchone()
 
+    cursor.execute("""SELECT "Bike Score" FROM cityspire WHERE "Location" = %s;""", [location])
+    bike = cursor.fetchone()
+
+    cursor.execute("""SELECT "Cost of Living Index" FROM cityspire WHERE "Location" = %s;""", [location])
+    cost_of_living_index = cursor.fetchone()
+
     cursor.execute("""SELECT "Livability Score" FROM cityspire WHERE "Location" = %s;""", [location])
     live = cursor.fetchone()
+
+    cursor.execute("""SELECT "Crime Rate" FROM cityspire WHERE "Location" = %s;""", [location])
+    crime_rate = cursor.fetchone()
+
+    cursor.execute("""SELECT "Violent crime" FROM cityspire WHERE "Location" = %s;""", [location])
+    violent_crime = cursor.fetchone()
+
+    cursor.execute("""SELECT "Murder and nonnegligent manslaughter" FROM cityspire WHERE "Location" = %s;""", [location])
+    murder_and_nonnegligent_manslaughter = cursor.fetchone()
+
+    cursor.execute("""SELECT "Rape" FROM cityspire WHERE "Location" = %s;""", [location])
+    rape = cursor.fetchone()
+
+    cursor.execute("""SELECT "Robbery" FROM cityspire WHERE "Location" = %s;""", [location])
+    robbery = cursor.fetchone()
+
+    cursor.execute("""SELECT "Aggravated assault" FROM cityspire WHERE "Location" = %s;""", [location])
+    aggravated_assault = cursor.fetchone()
+
+    cursor.execute("""SELECT "Property crime" FROM cityspire WHERE "Location" = %s;""", [location])
+    property_crime = cursor.fetchone()
+
+    cursor.execute("""SELECT "Burglary" FROM cityspire WHERE "Location" = %s;""", [location])
+    burglary = cursor.fetchone()
+
+    cursor.execute("""SELECT "Larceny-theft" FROM cityspire WHERE "Location" = %s;""", [location])
+    larceny_theft = cursor.fetchone()
+
+    cursor.execute("""SELECT "Motor vehicle theft" FROM cityspire WHERE "Location" = %s;""", [location])
+    motor_vehicle_theft = cursor.fetchone()
+
+    cursor.execute("""SELECT "Arson" FROM cityspire WHERE "Location" = %s;""", [location])
+    arson = cursor.fetchone()
 
 
     # Return the data that was requested and queried
@@ -119,5 +171,18 @@ async def location_data(location: LocationDataRequest):
         "population": int(pop[0]),
         "rent_per_month": int(rent[0]),
         "walk_score": int(walk[0]),
-        "livability_score": int(live[0])
+        "bike_score": int(bike[0]),
+        "cost_of_living_index": int(cost_of_living_index[0]),
+        "livability_score": int(live[0]),
+        "crime_rate": int(crime_rate[0]),
+        "violent_crime": int(violent_crime[0]),
+        "murder_and_nonnegligent_manslaughter": int(murder_and_nonnegligent_manslaughter[0]),
+        "rape": int(rape[0]),
+        "robbery": int(robbery[0]),
+        "aggravated_assault": int(aggravated_assault[0]),
+        "property_crime": int(property_crime[0]),
+        "burglary": int(burglary[0]),
+        "larceny_theft": int(larceny_theft[0]),
+        "motor_vehicle_theft": int(motor_vehicle_theft[0]),
+        "arson": int(arson[0])
     }
