@@ -30,10 +30,7 @@ provides 3 primary routes:
 | Type | Endpoint | Required Parameters | Returns |
 | ---- | -------- | ---------- | ------- |
 | GET  | /cityspire  | none | "[[0, 0, \"Akron, Ohio\", 197597.0, 678.0, 1782.0, 27.0, 181.0, 328.0, 1246.0, 6568.0, 1686.0, 4305.0, 577.0, 65.0, 8484.440553247267, 46, 46, 90.8, 7972.779227752733], ...]" |
-| GET | /locations | none | {
-  "locations": [
-    "Akron, Ohio",
-    "Albany, New York", ...] |
+| GET | /locations | none | { "locations": ["Akron, Ohio", "Albany, New York", ...] }|
 | POST | /location/data/ | "location": "City, State" | {
   "city_name": "El Paso, Texas",
   "population": 681728,
@@ -42,6 +39,7 @@ provides 3 primary routes:
   "livability_score": 12687
 } |
 
+[TODO]
 More details about the API endpoints can be found at the
 [ReDoc](https://blahblahblah.herokuapp.com/redoc) interface or by
 exploring the interactive [SwaggerUI](https://blahblahblah.herokuapp.com).
