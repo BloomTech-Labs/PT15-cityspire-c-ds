@@ -21,7 +21,7 @@ load_dotenv()
 
 # Read in data for the DB
 
-df = pd.read_csv("cityspire-c-ds\data\pop_rent_crime_walk_cost_livability_bins.csv")
+df = pd.read_csv("app/data/pop_rent_crime_walk_cost_livability_bins.csv")
 
 # Instantiate DB
 
