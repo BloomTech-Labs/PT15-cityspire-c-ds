@@ -3,7 +3,6 @@
 
 
 """Route that provides data for each location based on input of location name in the form of "City, State".
-
 POST '/location/data'
 """
 
@@ -30,11 +29,12 @@ from pydantic import BaseModel, Field, Json
 log = logging.getLogger(__name__)
 router = APIRouter()
 
+
 # Connect to AWS RDS PG DB
 
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
-#DATABASE_URL = os.getenv['DATABASE_URL'] # for AWS EB Environment Variable
+
 connection = psycopg2.connect(DATABASE_URL)
 
 # Cursor for making SQL queries
@@ -56,10 +56,23 @@ class LocationDataItem(BaseModel):
     """Output Schema - Location information."""
     
     city_name: str = Field(..., example = "Phoenix, Arizona")
-    population: int = Field(..., example = 1000000)
-    rent_per_month: int = Field(..., example = 1500)
-    walk_score: int = Field(..., example = 98)
-    livability_score: int = Field(..., example = 1000)
+    population: int = Field(..., example = 1680992)
+    rent_per_month: int = Field(..., example = 1447.4375)
+    walk_score: int = Field(..., example = 41)
+    bike_score: int = Field(..., example = 56)
+    cost_of_living_index: int = Field(..., example = 105.79999999999986)
+    livability_score: int = Field(..., example = 8401.333637579924)
+    crime_rate: int = Field(..., example = 8075.886143420093)
+    violent_crime: int = Field(..., example = 11803)
+    murder_and_nonnegligent_manslaughter: int = Field(..., example = 131)
+    rape: int = Field(..., example = 1139)
+    robbery: int = Field(..., example = 3197)
+    aggravated_assault: int = Field(..., example = 7336)
+    property_crime: int = Field(..., example = 55974)
+    burglary: int = Field(..., example = 9471)
+    larceny_theft: int = Field(..., example = 39427)
+    motor_vehicle_theft: int = Field(..., example = 7076)
+    arson: int = Field(..., example = 201)
 
     
 # Instantiate LocationDataResponse BaseModel
@@ -76,10 +89,8 @@ class LocationDataResponse(BaseModel):
 async def location_data(location: LocationDataRequest):
     """
     Route for front end to obtain the data for the Location of choice.
-
     ### Request:
     "location": "City, State"
-
     ### Response:
     A JSON Object of the data for requested Location \n
     "location": city and state of location requested \n
@@ -98,32 +109,56 @@ async def location_data(location: LocationDataRequest):
 
     # Queries for data response
 
-    #pop_query = """SELECT "2019 Population" FROM CitySpire WHERE "Location" = %s""", [location]
-    #rent_query = """SELECT "2019 Rental Rates" FROM CitySpire WHERE "Location" = %s""", [location]
-    #walk_query = """SELECT "2019 Walk Score" FROM CitySpire WHERE "Location" = %s""", [location]
-    #live_query = """SELECT "2019 Livability Score" FROM CitySpire WHERE "Location" = %s""", [location]
-
-    cursor.execute("""SELECT "2019 Population" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "2019 Population" FROM cityspire01 WHERE "Location" = %s;""", [location])
     pop = cursor.fetchone()
-    #pop = pop[0][0] # This is slice slice the tuple value from the list of tuples
 
-    cursor.execute("""SELECT "2019 Rental Rates" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "2019 Rental Rates" FROM cityspire01 WHERE "Location" = %s;""", [location])
     rent = cursor.fetchone()
-    #rent = rent[0][0] # This is slice slice the tuple value from the list of tuples
 
-    cursor.execute("""SELECT "Walk Score" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Walk Score" FROM cityspire01 WHERE "Location" = %s;""", [location])
     walk = cursor.fetchone()
-    #walk = walk[0][0] # This is slice slice the tuple value from the list of tuples
 
-    cursor.execute("""SELECT "Livability Score" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Bike Score" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    bike = cursor.fetchone()
+
+    cursor.execute("""SELECT "Cost of Living Index" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    cost_of_living_index = cursor.fetchone()
+
+    cursor.execute("""SELECT "Livability Score" FROM cityspire01 WHERE "Location" = %s;""", [location])
     live = cursor.fetchone()
-    #live = live[0][0] # This is slice slice the tuple value from the list of tuples
 
-    
-    # Close the cursor and connection (this breaks the API)
+    cursor.execute("""SELECT "Crime Rate" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    crime_rate = cursor.fetchone()
 
-    #cursor.close()
-    #connection.close()
+    cursor.execute("""SELECT "Violent crime" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    violent_crime = cursor.fetchone()
+
+    cursor.execute("""SELECT "Murder and nonnegligent manslaughter" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    murder_and_nonnegligent_manslaughter = cursor.fetchone()
+
+    cursor.execute("""SELECT "Rape" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    rape = cursor.fetchone()
+
+    cursor.execute("""SELECT "Robbery" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    robbery = cursor.fetchone()
+
+    cursor.execute("""SELECT "Aggravated assault" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    aggravated_assault = cursor.fetchone()
+
+    cursor.execute("""SELECT "Property crime" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    property_crime = cursor.fetchone()
+
+    cursor.execute("""SELECT "Burglary" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    burglary = cursor.fetchone()
+
+    cursor.execute("""SELECT "Larceny-theft" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    larceny_theft = cursor.fetchone()
+
+    cursor.execute("""SELECT "Motor vehicle theft" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    motor_vehicle_theft = cursor.fetchone()
+
+    cursor.execute("""SELECT "Arson" FROM cityspire01 WHERE "Location" = %s;""", [location])
+    arson = cursor.fetchone()
 
 
     # Return the data that was requested and queried
@@ -133,5 +168,18 @@ async def location_data(location: LocationDataRequest):
         "population": int(pop[0]),
         "rent_per_month": int(rent[0]),
         "walk_score": int(walk[0]),
-        "livability_score": int(live[0])
+        "bike_score": int(bike[0]),
+        "cost_of_living_index": int(cost_of_living_index[0]),
+        "livability_score": int(live[0]),
+        "crime_rate": int(crime_rate[0]),
+        "violent_crime": int(violent_crime[0]),
+        "murder_and_nonnegligent_manslaughter": int(murder_and_nonnegligent_manslaughter[0]),
+        "rape": int(rape[0]),
+        "robbery": int(robbery[0]),
+        "aggravated_assault": int(aggravated_assault[0]),
+        "property_crime": int(property_crime[0]),
+        "burglary": int(burglary[0]),
+        "larceny_theft": int(larceny_theft[0]),
+        "motor_vehicle_theft": int(motor_vehicle_theft[0]),
+        "arson": int(arson[0])
     }
