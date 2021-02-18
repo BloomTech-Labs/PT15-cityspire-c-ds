@@ -16,7 +16,7 @@ async def fetch_census_population_data(city: str, statecode: str):
     `statecode`: e.g  `NY` The [USPS 2 letter abbreviation](https://en.wikipedia.org/wiki/List_of_U.S._state_and_territory_abbreviations#Table)
     (case insensitive) for any of the 50 states or the District of Columbia.
     ## Response
-    JSON string of city population stats for more than 1000 cities
+    JSON string of city population stats for more than 29991 cities
     U.S. cities.
     """
 
