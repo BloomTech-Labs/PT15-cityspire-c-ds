@@ -4,7 +4,7 @@ import pandas as pd
 router = APIRouter()
 
 
-@router.get("/walkscore/{city}_{statecode}")
+@router.get("/crime/{city}_{statecode}")
 async def fetch_rental_prices(city: str, statecode: str):
     """
     City-level historic violent crime and Property crime rate
