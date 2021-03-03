@@ -52,7 +52,8 @@ class LocationsResponse(BaseModel):
 
 # Query for all unique locations
 
-cursor.execute("""SELECT DISTINCT "Location" FROM cityspire;""")
+cursor.execute("""SELECT DISTINCT "Location" FROM cityspire01;""")
+
 result = cursor.fetchall()
 Locations = [location[0] for location in result]
 

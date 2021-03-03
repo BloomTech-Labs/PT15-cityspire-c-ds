@@ -3,7 +3,6 @@
 
 
 """Route that provides data for each location based on input of location name in the form of "City, State".
-
 POST '/location/data'
 """
 
@@ -90,10 +89,8 @@ class LocationDataResponse(BaseModel):
 async def location_data(location: LocationDataRequest):
     """
     Route for front end to obtain the data for the Location of choice.
-
     ### Request:
     "location": "City, State"
-
     ### Response:
     A JSON Object of the data for requested Location \n
     "location": city and state of location requested \n
@@ -112,55 +109,55 @@ async def location_data(location: LocationDataRequest):
 
     # Queries for data response
 
-    cursor.execute("""SELECT "2019 Population" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "2019 Population" FROM cityspire01 WHERE "Location" = %s;""", [location])
     pop = cursor.fetchone()
 
-    cursor.execute("""SELECT "2019 Rental Rates" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "2019 Rental Rates" FROM cityspire01 WHERE "Location" = %s;""", [location])
     rent = cursor.fetchone()
 
-    cursor.execute("""SELECT "Walk Score" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Walk Score" FROM cityspire01 WHERE "Location" = %s;""", [location])
     walk = cursor.fetchone()
 
-    cursor.execute("""SELECT "Bike Score" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Bike Score" FROM cityspire01 WHERE "Location" = %s;""", [location])
     bike = cursor.fetchone()
 
-    cursor.execute("""SELECT "Cost of Living Index" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Cost of Living Index" FROM cityspire01 WHERE "Location" = %s;""", [location])
     cost_of_living_index = cursor.fetchone()
 
-    cursor.execute("""SELECT "Livability Score" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Livability Score" FROM cityspire01 WHERE "Location" = %s;""", [location])
     live = cursor.fetchone()
 
-    cursor.execute("""SELECT "Crime Rate" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Crime Rate" FROM cityspire01 WHERE "Location" = %s;""", [location])
     crime_rate = cursor.fetchone()
 
-    cursor.execute("""SELECT "Violent crime" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Violent crime" FROM cityspire01 WHERE "Location" = %s;""", [location])
     violent_crime = cursor.fetchone()
 
-    cursor.execute("""SELECT "Murder and nonnegligent manslaughter" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Murder and nonnegligent manslaughter" FROM cityspire01 WHERE "Location" = %s;""", [location])
     murder_and_nonnegligent_manslaughter = cursor.fetchone()
 
-    cursor.execute("""SELECT "Rape" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Rape" FROM cityspire01 WHERE "Location" = %s;""", [location])
     rape = cursor.fetchone()
 
-    cursor.execute("""SELECT "Robbery" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Robbery" FROM cityspire01 WHERE "Location" = %s;""", [location])
     robbery = cursor.fetchone()
 
-    cursor.execute("""SELECT "Aggravated assault" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Aggravated assault" FROM cityspire01 WHERE "Location" = %s;""", [location])
     aggravated_assault = cursor.fetchone()
 
-    cursor.execute("""SELECT "Property crime" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Property crime" FROM cityspire01 WHERE "Location" = %s;""", [location])
     property_crime = cursor.fetchone()
 
-    cursor.execute("""SELECT "Burglary" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Burglary" FROM cityspire01 WHERE "Location" = %s;""", [location])
     burglary = cursor.fetchone()
 
-    cursor.execute("""SELECT "Larceny-theft" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Larceny-theft" FROM cityspire01 WHERE "Location" = %s;""", [location])
     larceny_theft = cursor.fetchone()
 
-    cursor.execute("""SELECT "Motor vehicle theft" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Motor vehicle theft" FROM cityspire01 WHERE "Location" = %s;""", [location])
     motor_vehicle_theft = cursor.fetchone()
 
-    cursor.execute("""SELECT "Arson" FROM cityspire WHERE "Location" = %s;""", [location])
+    cursor.execute("""SELECT "Arson" FROM cityspire01 WHERE "Location" = %s;""", [location])
     arson = cursor.fetchone()
 
 

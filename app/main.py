@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from app import db, ml, viz, locations, location
+from app import db, ml, viz, locations,location, census,rental, walkscore,crime
 
 
 #Edit your app's title and description. See [https://fastapi.tiangolo.com/tutorial/metadata/](https://fastapi.tiangolo.com/tutorial/metadata/)
@@ -35,7 +35,10 @@ app = FastAPI(
 
 app.include_router(db.router, tags=['Database'])
 app.include_router(ml.router, tags=['Machine Learning'])
-app.include_router(viz.router, tags=['Visualization'])
+app.include_router(census.router,tags=['population_data'])
+app.include_router(rental.router,tags=['rental_price'])
+app.include_router(walkscore.router, tags=['walkscore'])
+app.include_router(crime.router,tags=['crime_data'])
 
 app.include_router(locations.router, tags=['Locations'])
 app.include_router(location.router, tags =['Data by Location'])
