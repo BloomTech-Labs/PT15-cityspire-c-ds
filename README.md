@@ -1,7 +1,5 @@
 # CitySpire - Data Science
 
-# Labs DS template
-
 [Docs](https://docs.labs.lambdaschool.com/data-science/)
 
 ## Mission
@@ -14,36 +12,28 @@ An app that analyzes data from cities such as populations, cost of living, renta
 
 Use data to find a place right for you to live.
 
-
+[TODO]
 (provide FastAPI image and info on API endpoints)
+![alt text](cityspire-c-ds/cityspire.png/cityspire.png?raw=true)
 
 
 ## Data Engineering
 
-FastAPI app, [deployed to Heroku](https://blahblahblah.herokuapp.com) and [deployed to AWS](https://blahblahblah.aws.com),
-provides 2 routes. One route, `/labels`, provides the labels a user can select
-to distinguish cities. The `/recommends` endpoint routes user input to the
-machine learning model and returns the resulting recommendations.
+FastAPI app, [deployed to AWS](http://cityspire-c-ds.eba-p3pw36sj.us-east-1.elasticbeanstalk.com/),
+provides 3 primary routes:
 
-A single endpoint that returns all data for a city in one object. 
+- `/cityspire` is a GET route that provides all of the data in the database in a table format.
+- `/locations` is a GET route that provides a list of all cities in the database.
+- `/location/data` is a POST route that takes a request of location in the form of "City, State" and returns all of the data about that location.
 
-Call an endpoint with a city request parameter, something like:
-GET .../cities/the-big-city
-
-then get a single object in return, something like:
-{
-   city_name: 'the-big-city',
-   population: 1000000,
-   rent_per_month: 1500,
-   walk_score: {Idk what this should look like, up to you guys, just let us know},
-   livability_score: {up to you as well}
-}
 
 | Type | Endpoint | Required Parameters | Returns |
 | ---- | -------- | ---------- | ------- |
-| GET  | /labels  |            | {'livability score': 100, 'rent rate': 500} |
-| POST | /recommends | {'livability score': 100, 'rent rate': 1000} | {'Location': Miami Beach} |
+| GET  | /cityspire  | none | "[[0, 0, \"Akron, Ohio\", 197597.0, 678.0, 1782.0, 27.0, 181.0, 328.0, 1246.0, 6568.0, 1686.0, 4305.0, 577.0, 65.0, 8484.440553247267, 46, 46, 90.8, 7972.779227752733], ...]" |
+| GET | /locations | none | { "locations": ["Akron, Ohio", "Albany, New York", ...] }|
+| POST | /location/data/ | "location": "City, State" | { "city_name": "El Paso, Texas", "population": 681728, "rent_per_month": 990, "walk_score": 41, "livability_score": 12687 } |
 
+[TODO]
 More details about the API endpoints can be found at the
 [ReDoc](https://blahblahblah.herokuapp.com/redoc) interface or by
 exploring the interactive [SwaggerUI](https://blahblahblah.herokuapp.com).
@@ -57,6 +47,63 @@ The data wrangling and merging and can be found in the wrangling.ipynb notebook,
 The Nearest Neighbors and TFIDF Vectorizer pickles can be found in the pickles directory.
 
 The pickled Nearest Neighbors model and TFIDF Vectorizer are imported into recommend.py in the app directory so that they can be used in a recommend function in the Data Engineering API in order to recommend cities to live in to users based on desired population, rental rate, crime rate, walkability score, cost of living index, and livability score.
+
+## Deployment
+
+The CitySpire API is backed by a Postgres DB in AWS RDS. The data was uploaded to the DB using the df_to_sql.py script in the notebooks directory.
+
+After you create your own PG DB on AWS RDS you need to add the DB URL to a .env file:
+
+`DATABASE_URL=postgresql://DBusername:DBpassword@blah.blah.blah.us-east-1.rds.amazonaws.com/dbname`
+
+Commands to deploy locally:
+
+Create virtual environment in root directory of project:
+`pipenv shell`
+
+Install project dependencies in virutal environment:
+`pipenv install --dev`
+
+Launch app locally:
+`uvicorn app.main:app --reload`
+
+Launch app locally on different port:
+`uvicorn app.main:app --reload --port 8080`
+
+
+The API app is deployed to AWS Elastic Beanstalk using a Dockerfile. **It is crucial to organize all of the app directories into the app directory because the Dockerfile copies the app structure from the app directory, not the root directory of this repo.**
+
+[Documentation on how to set up AWS and EB CLI](https://docs.labs.lambdaschool.com/data-science/tech/aws-elastic-beanstalk#deploy-the-first-time)
+
+Commands to deploy to Elastic Beanstalk:
+
+Commit your work:
+`git add --all`
+`git commit -m "Your commit message"`
+
+Then use these EB CLI commands (Elastic Beanstalk command line interface) to deploy. (Replace CHOOSE-YOUR-NAME with your own name.)
+`eb init --platform docker --region us-east-1 CHOOSE-YOUR-NAME`
+`eb create --region us-east-1 CHOOSE-YOUR-NAME`
+
+Do you have environment variables? Then [configure environment variables in the Elastic Beanstalk console](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html#environments-cfg-softwaresettings-console).
+
+Now you can open your deployed app! 🎉
+`eb open`
+
+Commands to redeploy to Elastic Beanstalk:
+
+Commit your work:
+`git add --all`
+`git commit -m "Your commit message"`
+
+Then use these EB CLI commands (Elastic Beanstalk command line interface) to re-deploy.
+`eb deploy`
+`eb open`
+
+It is also possible to redeploy without committing your work with these commands:
+`git add .`
+`eb deploy --staged`
+
 
 # Contributors
 
