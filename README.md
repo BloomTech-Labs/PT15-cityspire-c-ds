@@ -104,6 +104,17 @@ It is also possible to redeploy without committing your work with these commands
 `git add .`
 `eb deploy --staged`
 
+## Data Sources
+
+Population Data - https://www2.census.gov/programs-surveys/popest/tables/2010-2019/cities/totals/SUB-IP-EST2019-ANNRES.xlsx
+
+Rental Rates - https://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv
+
+Crime Rates - https://ucr.fbi.gov/crime-in-the-u.s/2019/crime-in-the-u.s.-2019/tables/table-8/table-8.xls/view
+
+Walk Scores - https://www.walkscore.com/cities-and-neighborhoods/
+
+Cost of Living Index - https://advisorsmith.com/data/coli/
 
 # Contributors
 
