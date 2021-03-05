@@ -15,6 +15,7 @@ Use data to find a place right for you to live.
 [TODO]
 (provide FastAPI image and info on API endpoints)
 ![alt text](cityspire-c-ds/cityspire.png/cityspire.png?raw=true)
+![alt text](https://github.com/Lambda-School-Labs/cityspire-c-ds/blob/main/cityspire.png)
 
 
 ## Data Engineering
